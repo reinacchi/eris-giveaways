@@ -254,7 +254,7 @@ class GiveawaysManager extends EventEmitter {
 
     /**
      * Pauses a giveaway.
-     * @param {Discord.Snowflake} messageID The message ID of the giveaway to pause.
+     * @param {String} messageID The message ID of the giveaway to pause.
      * @param {PauseOptions} [options] The pause options.
      * @returns {Promise<Giveaway>} The paused giveaway.
      *
@@ -266,10 +266,8 @@ class GiveawaysManager extends EventEmitter {
             const giveaway = this.giveaways.find((g) => g.messageID === messageID);
             if (!giveaway) return reject('No giveaway found with message ID ' + messageID + '.');
             
-            giveaway
-                .pause(options)
-                .then(resolve)
-                .catch(reject);
+            giveaway.pause(options).then(resolve).catch(reject);
+            this.emit('giveawayPaused', giveaway);
         });
     }
 
@@ -286,10 +284,8 @@ class GiveawaysManager extends EventEmitter {
             const giveaway = this.giveaways.find((g) => g.messageID === messageID);
             if (!giveaway) return reject('No giveaway found with message ID ' + messageID + '.');
             
-            giveaway
-                .unpause()
-                .then(resolve)
-                .catch(reject);
+            giveaway.unpause().then(resolve).catch(reject);
+            this.emit('giveawayUnpaused', giveaway);
         });
     }
 
@@ -311,9 +307,8 @@ class GiveawaysManager extends EventEmitter {
             const giveaway = this.giveaways.find((g) => g.messageID === messageID);
             if (!giveaway) return reject('No giveaway found with ID ' + messageID + '.');
             
-            giveaway.edit(options)
-                .then(resolve)
-                .catch(reject);
+            giveaway.edit(options).then(resolve).catch(reject);
+            this.emit('giveawayEdited', giveaway);
         });
     }
 
@@ -402,7 +397,7 @@ class GiveawaysManager extends EventEmitter {
     /**
      * Edit the giveaway in the database
      * @ignore
-     * @param {Discord.Snowflake} messageID The message ID identifying the giveaway
+     * @param {String} messageID The message ID identifying the giveaway
      * @param {GiveawayData} giveawayData The giveaway data to save
      */
     async editGiveaway(_messageID, _giveawayData) {
@@ -418,7 +413,7 @@ class GiveawaysManager extends EventEmitter {
     /**
      * Save the giveaway in the database
      * @ignore
-     * @param {Discord.Snowflake} messageID The message ID identifying the giveaway
+     * @param {String} messageID The message ID identifying the giveaway
      * @param {GiveawayData} giveawayData The giveaway data to save
      */
     async saveGiveaway(messageID, giveawayData) {
