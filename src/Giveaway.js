@@ -447,9 +447,6 @@ class Giveaway extends EventEmitter {
         }
 
         let rolledWinners;
-        if (!userArray || userArray.length <= winnerCount)
-            rolledWinners = users.random(Math.min(winnerCount, users.length));
-        else {
             /** 
              * Random mechanism like https://github.com/discordjs/collection/blob/master/src/index.ts#L193
              * because collections/maps do not allow duplicates and so we cannot use their built in "random" function
@@ -458,7 +455,6 @@ class Giveaway extends EventEmitter {
             rolledWinners = Array.from({    
                 length: Math.min(winnerCount, users.length)
             }, () => userArray.splice(Math.floor(Math.random() * userArray.length), 1)[0]);
-        }
 
         const winners = [];
 
