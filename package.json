@@ -1,0 +1,31 @@
+{
+  "name": "eris-giveaways",
+  "version": "1.0.0",
+  "description": "A framework to faciitate the creation of giveaways using Eris",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NotMarx/eris-giveaways.git"
+  },
+  "keywords": [
+    "eris",
+    "eris-giveaways",
+    "giveaways",
+    "discord",
+    "discord-api"
+  ],
+  "author": "reinhardt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NotMarx/eris-giveaways/issues"
+  },
+  "homepage": "https://github.com/NotMarx/eris-giveaways#readme",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "eris": "github:bsian03/eris#v9",
+    "serialize-javascript": "^6.0.0"
+  }
+}
