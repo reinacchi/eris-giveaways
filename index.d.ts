@@ -1,5 +1,5 @@
 /**
- * A framework to faciitate the creation of giveaways using Eris
+ * A framework to facilitate the creation of giveaways using Eris
  */
 declare module 'eris-giveaways' {
     import { EventEmitter } from 'events';
