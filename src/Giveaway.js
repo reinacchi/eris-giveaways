@@ -654,7 +654,7 @@ class Giveaway extends EventEmitter {
             }
             let embedColor;
             try {
-                embedColor = Discord.Util.resolveColor(options.embedColor);
+                embedColor = options.embedColor;
             } catch {
                 embedColor = null;
             }

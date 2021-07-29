@@ -9,7 +9,7 @@ const Eris = require('eris');
  * @property {string} [inviteToParticipate='React with 🎉 to participate!'] Displayed in the giveaway embed. Invite people to react to the giveaway.
  * @property {string} [timeRemaining='Time remaining: **{duration}**'] Displayed below "inviteToParticipate" in the giveaway embed. "{duration}" will be replaced automatically with the time remaining.
  * @property {string} [winMessage='Congratulations, {winners}! You won **{prize}**!\n{messageURL}'] Sent in the channel when the giveaway is ended.
- * @property {string | EmbedFooterObject} [embedFooter='Powered by the discord-giveaways package'] The footer of the giveaway embed.
+ * @property {string | EmbedFooterObject} [embedFooter='Powered by the eris-giveaways package'] The footer of the giveaway embed.
  * @property {string} [noWinner='Giveaway cancelled, no valid participations.'] Sent in the channel if there is no valid winner for the giveaway.
  * @property {string} [winners='winner(s)'] Displayed next to the embed footer, used to display the number of winners of the giveaways.
  * @property {string} [endedAt='Ended at'] Displayed next to the embed footer, used to display the giveaway end date.
@@ -56,7 +56,7 @@ exports.GiveawayMessages = {
  * @property {number} time The giveaway duration.
  * @property {number} winnerCount The number of winners for the giveaway.
  * @property {string} prize The giveaway prize.
- * @property {Discord.User} [hostedBy] The user who hosts the giveaway.
+ * @property {Eris.User} [hostedBy] The user who hosts the giveaway.
  * @property {Boolean} [botsCanWin] If bots can win the giveaway.
  * @property {Eris.Constants.Permissions[]} [exemptPermissions] Members with any of these permissions will not be able to win a giveaway.
  * @property {Function} [exemptMembers] Function to filter members. If true is returned, the member will not be able to win the giveaway.
