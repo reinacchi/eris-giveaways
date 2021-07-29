@@ -62,7 +62,7 @@ class GiveawaysManager extends EventEmitter {
         return {
             title: giveaway.prize,
             color: giveaway.pauseOptions.isPaused && giveaway.pauseOptions.embedColor ? giveaway.pauseOptions.embedColor : lastChanceEnabled ? giveaway.lastChance.embedColor : giveaway.embedColor,
-            footer: giveaway.winnerCount,
+            footer: { text: giveaway.winnerCount },
             description: (giveaway.pauseOptions.isPaused
                 ? giveaway.pauseOptions.content + '\n\n'
                 : lastChanceEnabled
