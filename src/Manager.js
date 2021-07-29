@@ -268,10 +268,7 @@ class GiveawaysManager extends EventEmitter {
             
             giveaway
                 .pause(options)
-                .then((pausedGiveaway) => {
-                    this.emit('giveawayPaused', pausedGiveaway);
-                    resolve(pausedGiveaway)
-                })
+                .then(resolve)
                 .catch(reject);
         });
     }
@@ -291,10 +288,7 @@ class GiveawaysManager extends EventEmitter {
             
             giveaway
                 .unpause()
-                .then((unpausedGiveaway) => {
-                    this.emit('giveawayUnpaused', unpausedGiveaway);
-                    resolve(unpausedGiveaway)
-                })
+                .then(resolve)
                 .catch(reject);
         });
     }
@@ -318,10 +312,7 @@ class GiveawaysManager extends EventEmitter {
             if (!giveaway) return reject('No giveaway found with ID ' + messageID + '.');
             
             giveaway.edit(options)
-                .then((editedGiveaway) => {
-                    this.emit('giveawayEdited', editedGiveaway);
-                    resolve(editedGiveaway)
-                })
+                .then(resolve)
                 .catch(reject);
         });
     }
