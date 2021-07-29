@@ -412,7 +412,11 @@ class Giveaway extends EventEmitter {
             if (!reactionUsers.length) return []; 
         const guild = this.channel.guild;
         // Fetch guild members
-        if (this.client.options.intents.includes(Eris.Constants.Intents.guildMembers)) await guild.fetchMembers();
+        try {
+            guild.fetchMembers();
+        } catch (err) {
+            
+        }
 
         // Fetch all reaction users
         let userCollection = reactionUsers;
