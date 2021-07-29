@@ -1,6 +1,6 @@
 {
   "name": "eris-giveaways",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A framework to faciitate the creation of giveaways using Eris",
   "main": "index.js",
   "scripts": {
