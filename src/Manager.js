@@ -72,6 +72,7 @@ class GiveawaysManager extends EventEmitter {
             '\n' +
             giveaway.remainingTimeText +
             (giveaway.hostedBy ? '\n' + giveaway.messages.hostedBy.replace('{user}', giveaway.hostedBy) : ''),
+            thumbnail: { url: giveaway.thumbnail },
             timestamp: giveaway.endAt !== Infinity ? new Date(giveaway.endAt).toISOString() : "" 
         };
     }
@@ -110,7 +111,7 @@ class GiveawaysManager extends EventEmitter {
             color: giveaway.embedColorEnd,
             footer: { text: giveaway.messages.endedAt },
             description: descriptionString(formattedWinners),
-            time: new Date(giveaway.endAt).toISOString()
+            timestamp: new Date(giveaway.endAt).toISOString()
         };
     }
 
@@ -126,6 +127,7 @@ class GiveawaysManager extends EventEmitter {
             footer: { text: giveaway.messages.endedAt },
             description: giveaway.messages.noWinner +
             (giveaway.hostedBy ? '\n' + giveaway.messages.hostedBy.replace('{user}', giveaway.hostedBy) : ''),
+            thumbnail: { url: giveaway.thumbnail },
             timestamp: new Date(giveaway.endAt).toISOString()
         };
     }
