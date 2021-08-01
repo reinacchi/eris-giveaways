@@ -586,7 +586,6 @@ class Giveaway extends EventEmitter {
 
             const winners = await this.roll(options.winnerCount || undefined);
             
-            if (options.useInteractions === true) {
                 if (winners.length > 0) {
                     this.winnerIDs = winners.map((w) => w.id);
                     await this.manager.editGiveaway(this.messageID, this.data);
@@ -621,54 +620,9 @@ class Giveaway extends EventEmitter {
                     }
                     resolve(winners);
                 } else {
-                    this.client.requestHandler.request("POST", `/interactions/${packet.d.id}/${packet.d.token}/callback`, true, {
-                        type: 4,
-                        data: {
-                            embeds: options.messages.error,
-                            flags: 64
-                        }
-                    }).catch(() => {});
+                    options.useInteractions ? this.client.requestHandler.request("POST", `/interactions/${packet.d.id}/${packet.d.token}/callback`, true, { type: 4, data: { embeds: options.messages.error, flags: 64 }}).catch(() => {}) : this.message.channel.createMessage(options.messages.error);
                     resolve([]);
                 }
-            } else {
-                if (winners.length > 0) {
-                    this.winnerIDs = winners.map((w) => w.id);
-                    await this.manager.editGiveaway(this.messageID, this.data);
-                    const embed = this.manager.generateEndEmbed(this, winners);
-                    await this.message.edit({ content: this.messages.giveawayEnded, embeds: [embed] }).catch(() => { });
-                    let formattedWinners = winners.map((w) => `<@${w.id}>`).join(', ');
-                    const messageString = options.messages.congrat
-                        .replace('{winners}', formattedWinners)
-                        .replace('{prize}', this.prize)
-                        .replace('{messageURL}', this.messageURL);
-                    if (messageString.length <= 2000) this.message.channel.createMessage(messageString);
-                    else {
-                        this.message.channel.createMessage(
-                            options.messages.congrat
-                                .substr(0, options.messages.congrat.indexOf('{winners}'))
-                                .replace('{prize}', this.prize)
-                                .replace('{messageURL}', this.messageURL)
-                        );
-                        while (formattedWinners.length >= 2000) {
-                            await this.message.channel.createMessage(
-                                formattedWinners.substr(0, formattedWinners.lastIndexOf(',', 1999)) + ','
-                            );
-                            formattedWinners = formattedWinners.slice(formattedWinners.substr(0, formattedWinners.lastIndexOf(',', 1999) + 2).length);
-                        }
-                        this.message.channel.createMessage(formattedWinners);
-                        this.message.channel.createMessage(
-                            options.messages.congrat
-                                .substr(options.messages.congrat.indexOf('{winners}') + 9)
-                                .replace('{prize}', this.prize)
-                                .replace('{messageURL}', this.messageURL)
-                        );
-                    }
-                    resolve(winners);
-                } else {
-                    this.message.channel.createMessage(options.messages.error)
-                    resolve([]);
-                }
-            }
         });
     }
 
