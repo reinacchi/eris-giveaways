@@ -618,7 +618,9 @@ class Giveaway extends EventEmitter {
                 }
                 resolve(winners);
             } else {
-                this.message.channel.createMessage(options.messages.error);
+                if (options.messages.error) {
+                    this.message.channel.createMessage(options.messages.error)
+                }
                 resolve([]);
             }
         });
