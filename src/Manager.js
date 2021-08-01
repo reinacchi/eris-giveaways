@@ -233,24 +233,35 @@ class GiveawaysManager extends EventEmitter {
      * Choose new winner(s) for the giveaway
      * @param {String} messageID The message ID of the giveaway to reroll
      * @param {GiveawayRerollOptions} [options] The reroll options
+     * @param {Eris.RawPacket} [packet] The raw packet
      * @returns {Promise<Eris.Member[]>} The new winners
      *
      * @example
      * manager.reroll('664900661003157510');
      */
-    reroll(messageID, options = {}) {
+    reroll(messageID, options = {}, packet) {
         return new Promise(async (resolve, reject) => {
             options = merge(GiveawayRerollOptions, options);
             const giveaway = this.giveaways.find((g) => g.messageID === messageID);
             if (!giveaway) return reject('No giveaway found with ID ' + messageID + '.');
 
-            giveaway
+            if (options.useInteraction === true) {
+                giveaway
+                .reroll(options, packet)
+                .then((winners) => {
+                    this.emit('giveawayRerolled', giveaway, winners);
+                    resolve(winners);
+                })
+                .catch(reject);
+            } else {
+                giveaway
                 .reroll(options)
                 .then((winners) => {
                     this.emit('giveawayRerolled', giveaway, winners);
                     resolve(winners);
                 })
                 .catch(reject);
+            }
         });
     }
 

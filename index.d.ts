@@ -173,6 +173,7 @@ declare module 'eris-giveaways' {
     }
     interface GiveawayRerollOptions {
         winnerCount?: number;
+        useInteractions?: boolean;
         messages?: {
             congrat?: string;
             error?: string;
