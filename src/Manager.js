@@ -245,7 +245,7 @@ class GiveawaysManager extends EventEmitter {
             const giveaway = this.giveaways.find((g) => g.messageID === messageID);
             if (!giveaway) return reject('No giveaway found with ID ' + messageID + '.');
 
-            if (options.useInteraction === true) {
+            if (options.useInteractions === true) {
                 giveaway
                 .reroll(options, packet)
                 .then((winners) => {
