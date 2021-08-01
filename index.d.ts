@@ -18,7 +18,7 @@ declare module 'eris-giveaways' {
         public deleteGiveaway(messageID: string): Promise<boolean>;
         public edit(messageID: string, options: GiveawayEditOptions): Promise<Giveaway>;
         public end(messageID: string): Promise<Member[]>;
-        public reroll(messageID: string, options?: GiveawayRerollOptions): Promise<Member[]>;
+        public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: Eris.RawPacket): Promise<Member[]>;
         public start(channel: Eris.TextChannel, options: GiveawayStartOptions): Promise<Giveaway>;
         public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
@@ -156,7 +156,7 @@ declare module 'eris-giveaways' {
         public edit(options: GiveawayEditOptions): Promise<Giveaway>;
         public end(): Promise<Eris.Member[]>;
         public fetchMessage(): Promise<Eris.Message>;
-        public reroll(options?: GiveawayRerollOptions): Promise<Eris.Member[]>;
+        public reroll(options?: GiveawayRerollOptions, packet?: Eris.RawPacket): Promise<Eris.Member[]>;
         public roll(winnerCount?: number): Promise<Eris.Member[]>;
         public pause(options: PauseOptions): Promise<Giveaway>;
         public unpause(): Promise<Giveaway>;
