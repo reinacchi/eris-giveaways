@@ -226,6 +226,7 @@ class GiveawaysManager extends EventEmitter {
             this.giveaways.push(giveaway);
             await this.saveGiveaway(giveaway.messageID, giveaway.data);
             resolve(giveaway);
+            this.emit('giveawayCreated', giveaway, channel);
         });
     }
 
@@ -553,7 +554,7 @@ class GiveawaysManager extends EventEmitter {
  * Emitted when a giveaway ended.
  * @event GiveawaysManager#giveawayEnded
  * @param {Giveaway} giveaway The giveaway instance
- * @param {Discord.GuildMember[]} winners The giveaway winners
+ * @param {Eris.Member[]} winners The giveaway winners
  *
  * @example
  * // This can be used to add features such as a congratulatory message in DM
@@ -568,7 +569,7 @@ class GiveawaysManager extends EventEmitter {
  * Emitted when someone entered a giveaway.
  * @event GiveawaysManager#giveawayReactionAdded
  * @param {Giveaway} giveaway The giveaway instance
- * @param {Discord.GuildMember} member The member who entered the giveaway
+ * @param {Eris.Member} member The member who entered the giveaway
  * @param {Discord.MessageReaction} reaction The reaction to enter the giveaway
  *
  * @example
@@ -586,7 +587,7 @@ class GiveawaysManager extends EventEmitter {
  * Emitted when someone removed their reaction to a giveaway.
  * @event GiveawaysManager#giveawayReactionRemoved
  * @param {Giveaway} giveaway The giveaway instance
- * @param {Discord.GuildMember} member The member who remove their reaction giveaway
+ * @param {Eris.Member} member The member who remove their reaction giveaway
  * @param {Discord.MessageReaction} reaction The reaction to enter the giveaway
  *
  * @example
@@ -600,7 +601,7 @@ class GiveawaysManager extends EventEmitter {
  * Emitted when someone reacted to a ended giveaway.
  * @event GiveawaysManager#endedGiveawayReactionAdded
  * @param {Giveaway} giveaway The giveaway instance
- * @param {Discord.GuildMember} member The member who reacted to the ended giveaway
+ * @param {Eris.Member} member The member who reacted to the ended giveaway
  * @param {Discord.MessageReaction} reaction The reaction to enter the giveaway
  *
  * @example
@@ -614,7 +615,7 @@ class GiveawaysManager extends EventEmitter {
  * Emitted when a giveaway was rerolled.
  * @event GiveawaysManager#giveawayRerolled
  * @param {Giveaway} giveaway The giveaway instance
- * @param {Discord.GuildMember[]} winners The winners of the giveaway
+ * @param {Eris.Member[]} winners The winners of the giveaway
  *
  * @example
  * // This can be used to add features such as a congratulatory message per DM

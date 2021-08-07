@@ -103,15 +103,16 @@ declare module 'eris-giveaways' {
         };
     }
     interface GiveawaysManagerEvents {
+        giveawayCreated: [Giveaway, Eris.AnyGuildChannel];
         giveawayDeleted: [Giveaway];
-        giveawayEnded: [Giveaway, GuildMember[]];
+        giveawayEnded: [Giveaway, Eris.Member[]];
         giveawayEdited: [Giveaway];
-        giveawayRerolled: [Giveaway, GuildMember[]];
-        giveawayReactionAdded: [Giveaway, GuildMember, MessageReaction];
-        giveawayReactionRemoved: [Giveaway, GuildMember, MessageReaction];
+        giveawayRerolled: [Giveaway, Eris.Member[]];
+        giveawayReactionAdded: [Giveaway, Eris.Member, MessageReaction];
+        giveawayReactionRemoved: [Giveaway, Eris.Member, MessageReaction];
         giveawayPaused: [Giveaway];
         giveawayUnpaused: [Giveaway];
-        endedGiveawayReactionAdded: [Giveaway, GuildMember, MessageReaction];
+        endedGiveawayReactionAdded: [Giveaway, Eris.Member, MessageReaction];
     }
     class Giveaway extends EventEmitter {
         constructor(manager: GiveawaysManager, options: GiveawayData);
@@ -170,6 +171,7 @@ declare module 'eris-giveaways' {
         newThumbnail?: string;
         newBonusEntries?: BonusEntry[];
         newExtraData?: any;
+        newLastChance?: LastChanceOptions
     }
     interface GiveawayRerollOptions {
         winnerCount?: number;
