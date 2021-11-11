@@ -31,14 +31,14 @@ Before launching your bot with **Eris Giveaways**, here are some information you
 #### Required Intents:
 This library uses Eris' both REST and GATEWAY V9 which indicating intents are a required options. See below for specific intents:
 
-- `guilds` - 1 | 1 << 0
-- `guildMessages` - 512 | 1 << 9
-- `guildMessageReactions` - 1024 | 1 << 10
+- `guilds`
+- `guildMessages`
+- `guildMessageReactions`
 
 #### Optional Intents
 This is an optional intents for faster and better performance. You can either choose to enable these intents or not.
 
-- `guildMembers` - 2 | 1 << 1
+- `guildMembers`
 
 ```js
 // Require Libraries
@@ -113,4 +113,54 @@ if (!giveaway) return message.channel.createMessage(`Unable to find giveaway for
 
 ### Reroll a Giveaway
 
-- Soon™ To Add More README!
+```js
+
+client.on("messageCreate", async (message) => {
+    if (message.author.bot) return;
+
+    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+    const command = args.shift();
+
+    if (command === "reroll") {
+        const messageID = args[0];
+
+        client.giveawaysManager.reroll(messageID).then(() => {
+            message.channel.createMessage("Giveaway successfully rerolled!");
+        }).catch(() => {
+            message.channel.createMessage(`No giveaway found for \`${messageID}\`, please check and retry`); 
+        });
+    }
+});
+
+```
+
+<a href="http://zupimages.net/viewer.php?id=19/24/mhuo.png">
+    <img src="https://zupimages.net/up/19/24/mhuo.png"/>
+</a>
+
+### Edit a Giveaway
+
+```js
+
+client.on("messageCreate", async (message) => {
+    if (message.author.bot) return;
+
+    const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
+    const command = args.shift();
+
+    if (command === "edit") {
+        const messageID = args[0];
+
+        client.giveawaysManager.edit(messageID, {
+            addTime: 5000, // Add another 5 seconds to the giveaway length
+            newWinnerCount: 3, // Set the new winner count to 3
+            newPrize: "New Prize!" // Set the new prize
+        }).then(() => {
+            message.channel.createMessage(`Giveaway successfully edited!`);
+        }).catch(() => {
+            message.channel.createMessage(`An error has occured, please check and retry`);
+        });
+    }
+});
+
+```
