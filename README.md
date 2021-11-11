@@ -164,3 +164,9 @@ client.on("messageCreate", async (message) => {
 });
 
 ```
+
+# Coming Soon Features
+
+Here's the current planned list of upcoming and new features which will be release in **Eris Giveaways**.
+
+- Support for buttons 
