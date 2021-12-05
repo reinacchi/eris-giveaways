@@ -1,8 +1,6 @@
 # Eris Giveaways
 
-**Eris Giveaways** is a powerful [NodeJS](https://nodejs.org) third-party library that allows you to easily manage giveaways!
-
-**Note:** This library is an [Eris](https://github.com/abalabahaha/eris) version of [discord-giveaways](https://github.com/Androz2091/discord-giveaways).
+**Eris Giveaways** is a powerful [NodeJS](https://nodejs.org) framework that allows you to easily manage giveaways using the [Eris](https://github.com/abalabahaha/eris) library!
 
 ## Features
 
@@ -19,17 +17,17 @@
 ## Installations
 
 ```js
-npm install --save eris-giveaways
+npm install eris-giveaways
 ```
 
 ## Examples
 
-### Launch Of The Library
+### Launch Of The Framework
 
 Before launching your bot with **Eris Giveaways**, here are some information you need to look at:
 
 #### Required Intents:
-This library uses Eris' both REST and GATEWAY V9 which indicating intents are a required options. See below for specific intents:
+This framework uses Eris' both REST and GATEWAY V9 which indicating intents are a required options. See below for specific intents:
 
 - `guilds`
 - `guildMessages`
@@ -43,7 +41,7 @@ This is an optional intents for faster and better performance. You can either ch
 ```js
 // Require Libraries
 const Eris = require("eris");
-const bot = new Eris("Bot TOKEN", { intents: ["guilds", "guildMessages", "guildMessageReactions", "guildMembers"] });
+const bot = new Eris("Bot TOKEN", { intents: ["guilds", "guildMessages", "guildMessageReactions", "guildMembers"] }); // Replace "TOKEN" with your bot's real token
 const settings = {
     prefix: "g!"
 };
