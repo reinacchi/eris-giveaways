@@ -117,11 +117,11 @@ declare module 'eris-giveaways' {
         constructor(manager: GiveawaysManager, options: GiveawayData);
 
         public channelID: string;
-        public client: Client;
-        public endAt: Eris.Client;
+        public client: Eris.Client;
+        public endAt: number;
         public ended: boolean;
         public guildID: string;
-        public hostedBy?: Eris.User;
+        public hostedBy?: string;
         public manager: GiveawaysManager;
         public message: Eris.Message | null;
         public messageID?: string;
