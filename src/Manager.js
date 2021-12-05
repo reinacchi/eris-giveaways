@@ -158,7 +158,7 @@ class GiveawaysManager extends EventEmitter {
     /**
      * Starts a new giveaway
      *
-     * @param {Eris.TextChannel} channel The channel in which the giveaway will be created
+     * @param {Eris.AnyGuildChannel} channel The channel in which the giveaway will be created
      * @param {GiveawayStartOptions} options The options for the giveaway
      *
      * @returns {Promise<Giveaway>} The created giveaway.
