@@ -19,7 +19,7 @@ declare module 'eris-giveaways' {
         public edit(messageID: string, options: GiveawayEditOptions): Promise<Giveaway>;
         public end(messageID: string): Promise<Member[]>;
         public reroll(messageID: string, options?: GiveawayRerollOptions): Promise<Member[]>;
-        public start(channel: Eris.TextableChannel, options: GiveawayStartOptions): Promise<Giveaway>;
+        public start(channel: Eris.AnyGuildChannel, options: GiveawayStartOptions): Promise<Giveaway>;
         public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
         public on<K extends keyof GiveawaysManagerEvents>(
