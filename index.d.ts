@@ -178,7 +178,7 @@ declare module 'eris-giveaways' {
         useInteractions?: boolean;
         messages?: {
             congrat?: string;
-            error?: string;
+            error?: { content?: string, embed?: Eris.EmbedOptions } | string;
         };
     }
     interface GiveawayData {
