@@ -17,8 +17,8 @@ declare module 'eris-giveaways' {
         public delete(messageID: string, doNotDeleteMessage?: boolean): Promise<boolean>;
         public deleteGiveaway(messageID: string): Promise<boolean>;
         public edit(messageID: string, options: GiveawayEditOptions): Promise<Giveaway>;
-        public end(messageID: string): Promise<Member[]>;
-        public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: Eris.RawPacket): Promise<Member[]>;
+        public end(messageID: string): Promise<Eris.Member[]>;
+        public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: Eris.RawPacket): Promise<Eris.Member[]>;
         public start(channel: Eris.AnyGuildChannel, options: GiveawayStartOptions): Promise<Giveaway>;
         public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
