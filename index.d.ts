@@ -3,7 +3,7 @@
  */
 declare module 'eris-giveaways' {
     import { EventEmitter } from 'events';
-    import { Client, Constants, EmbedOptions, Member, Message, PartialEmoji, RawPacket, TextableChannel } from "eris";
+    import { Client, Constants, EmbedOptions, Member, Message, PartialEmoji, RawPacket, TextChannel, TextableChannel } from "eris";
 
     export const VERSION: string;
     export class GiveawaysManager extends EventEmitter {
