@@ -3,7 +3,7 @@
  */
 declare module 'eris-giveaways' {
     import { EventEmitter } from 'events';
-    import { AnyGuildChannel, Client, Constants, EmbedOptions, Member, Message, PartialEmoji, RawPacket, TextChannel } from "eris";
+    import { Client, Constants, EmbedOptions, Member, Message, PartialEmoji, RawPacket, TextChannel } from "eris";
 
     export const VERSION: string;
     export class GiveawaysManager extends EventEmitter {
@@ -19,7 +19,7 @@ declare module 'eris-giveaways' {
         public edit(messageID: string, options: GiveawayEditOptions): Promise<Giveaway>;
         public end(messageID: string): Promise<Member[]>;
         public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: RawPacket): Promise<Member[]>;
-        public start(channel: AnyGuildChannel, options: GiveawayStartOptions): Promise<Giveaway>;
+        public start(channel: TextChannel, options: GiveawayStartOptions): Promise<Giveaway>;
         public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
         on<K extends keyof GiveawaysManagerEvents>(event: K, listener: (...args: GiveawaysManagerEvents[K]) => void): this;
@@ -111,7 +111,7 @@ declare module 'eris-giveaways' {
         };
     }
     interface GiveawaysManagerEvents {
-        giveawayCreated: [giveaway: Giveaway, channel: AnyGuildChannel];
+        giveawayCreated: [giveaway: Giveaway, channel: TextChannel];
         giveawayDeleted: [giveaway: Giveaway];
         giveawayEnded: [giveaway: Giveaway, members: Member[]];
         giveawayEdited: [giveaway: Giveaway];
