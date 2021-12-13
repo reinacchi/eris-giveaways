@@ -22,25 +22,25 @@ declare module 'eris-giveaways' {
         public start(channel: AnyGuildChannel, options: GiveawayStartOptions): Promise<Giveaway>;
         public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
-        on<K extends keyof GiveawayManagerEvents>(event: K, listener: (...args: GiveawayManagerEvents[K]) => void): this;
+        on<K extends keyof GiveawaysManagerEvents>(event: K, listener: (...args: GiveawaysManagerEvents[K]) => void): this;
         on<S extends string | symbol>(
-            event: Exclude<S, keyof GiveawayManagerEvents>,
+            event: Exclude<S, keyof GiveawaysManagerEvents>,
             listener: (...args: any[]) => void,
         ): this;
-        once<K extends keyof GiveawayManagerEvents>(event: K, listener: (...args: GiveawayManagerEvents[K]) => void): this;
+        once<K extends keyof GiveawaysManagerEvents>(event: K, listener: (...args: GiveawaysManagerEvents[K]) => void): this;
         once<S extends string | symbol>(
-            event: Exclude<S, keyof GiveawayManagerEvents>,
+            event: Exclude<S, keyof GiveawaysManagerEvents>,
             listener: (...args: any[]) => void,
         ): this;
-        emit<K extends keyof GiveawayManagerEvents>(event: K, ...args: GiveawayManagerEvents[K]): boolean;
-        emit<S extends string | symbol>(event: Exclude<S, keyof GiveawayManagerEvents>, ...args: any[]): boolean;
-        off<K extends keyof GiveawayManagerEvents>(event: K, listener: (...args: GiveawayManagerEvents[K]) => void): this;
+        emit<K extends keyof GiveawaysManagerEvents>(event: K, ...args: GiveawaysManagerEvents[K]): boolean;
+        emit<S extends string | symbol>(event: Exclude<S, keyof GiveawaysManagerEvents>, ...args: any[]): boolean;
+        off<K extends keyof GiveawaysManagerEvents>(event: K, listener: (...args: GiveawaysManagerEvents[K]) => void): this;
         off<S extends string | symbol>(
-            event: Exclude<S, keyof GiveawayManagerEvents>,
+            event: Exclude<S, keyof GiveawaysManagerEvents>,
             listener: (...args: any[]) => void,
         ): this;
-        removeAllListeners<K extends keyof GiveawayManagerEvents>(event?: K): this;
-        removeAllListeners<S extends string | symbol>(event?: Exclude<S, keyof GiveawayManagerEvents>): this;
+        removeAllListeners<K extends keyof GiveawaysManagerEvents>(event?: K): this;
+        removeAllListeners<S extends string | symbol>(event?: Exclude<S, keyof GiveawaysManagerEvents>): this;
     }
     interface BonusEntry {
         bonus(member?: Member): number | Promise<number>;
