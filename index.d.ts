@@ -3,13 +3,13 @@
  */
 declare module 'eris-giveaways' {
     import { EventEmitter } from 'events';
-    import Eris from "eris";
+    import { AnyGuildChannel, Client, Constants, EmbedOptions, Member, Message, PartialEmoji, RawPacket, TextChannel } from "eris";
 
     export const VERSION: string;
     export class GiveawaysManager extends EventEmitter {
-        constructor(client: Eris.Client, options?: GiveawaysManagerOptions);
+        constructor(client: Client, options?: GiveawaysManagerOptions);
 
-        public client: Eris.Client;
+        public client: Client;
         public giveaways: Giveaway[];
         public options: GiveawaysManagerOptions;
         public ready: boolean;
@@ -17,25 +17,33 @@ declare module 'eris-giveaways' {
         public delete(messageID: string, doNotDeleteMessage?: boolean): Promise<boolean>;
         public deleteGiveaway(messageID: string): Promise<boolean>;
         public edit(messageID: string, options: GiveawayEditOptions): Promise<Giveaway>;
-        public end(messageID: string): Promise<Eris.Member[]>;
-        public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: Eris.RawPacket): Promise<Eris.Member[]>;
-        public start(channel: Eris.AnyGuildChannel, options: GiveawayStartOptions): Promise<Giveaway>;
+        public end(messageID: string): Promise<Member[]>;
+        public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: RawPacket): Promise<Member[]>;
+        public start(channel: AnyGuildChannel, options: GiveawayStartOptions): Promise<Giveaway>;
         public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
-        public on<K extends keyof GiveawaysManagerEvents>(
-            event: K,
-            listener: (...args: GiveawaysManagerEvents[K]) => void
+        on<K extends keyof GiveawayManagerEvents>(event: K, listener: (...args: GiveawayManagerEvents[K]) => void): this;
+        on<S extends string | symbol>(
+            event: Exclude<S, keyof GiveawayManagerEvents>,
+            listener: (...args: any[]) => void,
         ): this;
-
-        public once<K extends keyof GiveawaysManagerEvents>(
-            event: K,
-            listener: (...args: GiveawaysManagerEvents[K]) => void
+        once<K extends keyof GiveawayManagerEvents>(event: K, listener: (...args: GiveawayManagerEvents[K]) => void): this;
+        once<S extends string | symbol>(
+            event: Exclude<S, keyof GiveawayManagerEvents>,
+            listener: (...args: any[]) => void,
         ): this;
-
-        public emit<K extends keyof GiveawaysManagerEvents>(event: K, ...args: GiveawaysManagerEvents[K]): boolean;
+        emit<K extends keyof GiveawayManagerEvents>(event: K, ...args: GiveawayManagerEvents[K]): boolean;
+        emit<S extends string | symbol>(event: Exclude<S, keyof GiveawayManagerEvents>, ...args: any[]): boolean;
+        off<K extends keyof GiveawayManagerEvents>(event: K, listener: (...args: GiveawayManagerEvents[K]) => void): this;
+        off<S extends string | symbol>(
+            event: Exclude<S, keyof GiveawayManagerEvents>,
+            listener: (...args: any[]) => void,
+        ): this;
+        removeAllListeners<K extends keyof GiveawayManagerEvents>(event?: K): this;
+        removeAllListeners<S extends string | symbol>(event?: Exclude<S, keyof GiveawayManagerEvents>): this;
     }
     interface BonusEntry {
-        bonus(member?: Eris.Member): number | Promise<number>;
+        bonus(member?: Member): number | Promise<number>;
         cumulative?: boolean;
     }
     interface LastChanceOptions {
@@ -57,7 +65,7 @@ declare module 'eris-giveaways' {
         endedGiveawaysLifetime?: number;
         default?: {
             botsCanWin?: boolean,
-            exemptPermissions?: keyof Eris.Constants["Permissions"][],
+            exemptPermissions?: keyof Constants["Permissions"][],
             exemptMembers?: (member?: Member) => boolean | Promise<boolean>,
             embedColor?: number,
             embedColorEnd?: number,
@@ -71,8 +79,8 @@ declare module 'eris-giveaways' {
         prize: string;
         hostedBy?: string;
         botsCanWin?: boolean;
-        exemptPermissions?: keyof Eris.Constants["Permissions"][];
-        exemptMembers?: (member?: Eris.Member) => boolean | Promise<boolean>;
+        exemptPermissions?: keyof Constants["Permissions"][];
+        exemptMembers?: (member?: Member) => boolean | Promise<boolean>;
         bonusEntries?: BonusEntry[];
         embedColor?: number;
         embedColorEnd?: number;
@@ -103,28 +111,28 @@ declare module 'eris-giveaways' {
         };
     }
     interface GiveawaysManagerEvents {
-        giveawayCreated: [Giveaway, Eris.AnyGuildChannel];
-        giveawayDeleted: [Giveaway];
-        giveawayEnded: [Giveaway, Eris.Member[]];
-        giveawayEdited: [Giveaway];
-        giveawayRerolled: [Giveaway, Eris.Member[]];
-        giveawayReactionAdded: [Giveaway, Eris.Member, MessageReaction];
-        giveawayReactionRemoved: [Giveaway, Eris.Member, MessageReaction];
-        giveawayPaused: [Giveaway];
-        giveawayUnpaused: [Giveaway];
-        endedGiveawayReactionAdded: [Giveaway, Eris.Member, MessageReaction];
+        giveawayCreated: [giveaway: Giveaway, channel: AnyGuildChannel];
+        giveawayDeleted: [giveaway: Giveaway];
+        giveawayEnded: [giveaway: Giveaway, members: Member[]];
+        giveawayEdited: [giveaway: Giveaway];
+        giveawayRerolled: [giveaway: Giveaway, members: Member[]];
+        giveawayReactionAdded: [giveaway: Giveaway, member: Member, reaction: PartialEmoji];
+        giveawayReactionRemoved: [giveaway: Giveaway, member: Member, reaction: PartialEmoji];
+        giveawayPaused: [giveaway: Giveaway];
+        giveawayUnpaused: [giveaway: Giveaway];
+        endedGiveawayReactionAdded: [giveaway: Giveaway, member: Member, reaction: PartialEmoji];
     }
     class Giveaway extends EventEmitter {
         constructor(manager: GiveawaysManager, options: GiveawayData);
 
         public channelID: string;
-        public client: Eris.Client;
+        public client: Client;
         public endAt: number;
         public ended: boolean;
         public guildID: string;
         public hostedBy?: string;
         public manager: GiveawaysManager;
-        public message: Eris.Message | null;
+        public message: Message | null;
         public messageID?: string;
         public messages: GiveawaysMessages;
         public thumbnail?: string;
@@ -135,7 +143,7 @@ declare module 'eris-giveaways' {
         public winnerIDs: string[];
 
         // getters calculated using default manager options
-        readonly exemptPermissions: keyof Eris.Constants["Permissions"][];
+        readonly exemptPermissions: keyof Constants["Permissions"][];
         readonly embedColor: string;
         readonly embedColorEnd: string;
         readonly botsCanWin: boolean;
@@ -147,18 +155,18 @@ declare module 'eris-giveaways' {
         readonly duration: number;
         readonly messageURL: string;
         readonly remainingTimeText: string;
-        readonly channel: Eris.TextChannel;
+        readonly channel: TextChannel;
         readonly exemptMembersFunction: Function | null;
         readonly bonusEntries: BonusEntry[];
         readonly data: GiveawayData;
         readonly pauseOptions: PauseOptions;
 
-        public exemptMembers(member: Eris.Member): Promise<boolean>;
+        public exemptMembers(member: Member): Promise<boolean>;
         public edit(options: GiveawayEditOptions): Promise<Giveaway>;
-        public end(): Promise<Eris.Member[]>;
-        public fetchMessage(): Promise<Eris.Message>;
-        public reroll(options?: GiveawayRerollOptions, packet?: Eris.RawPacket): Promise<Eris.Member[]>;
-        public roll(winnerCount?: number): Promise<Eris.Member[]>;
+        public end(): Promise<Member[]>;
+        public fetchMessage(): Promise<Message>;
+        public reroll(options?: GiveawayRerollOptions, packet?: RawPacket): Promise<Member[]>;
+        public roll(winnerCount?: number): Promise<Member[]>;
         public pause(options: PauseOptions): Promise<Giveaway>;
         public unpause(): Promise<Giveaway>;
     }
@@ -178,7 +186,7 @@ declare module 'eris-giveaways' {
         useInteractions?: boolean;
         messages?: {
             congrat?: string;
-            error?: { content?: string, embed?: Eris.EmbedOptions } | string;
+            error?: { content?: string, embed?: EmbedOptions } | string;
         };
     }
     interface GiveawayData {
@@ -193,7 +201,7 @@ declare module 'eris-giveaways' {
         winnerIDs?: string[];
         messageID?: string;
         reaction?: string;
-        exemptPermissions?: keyof Eris.Constants["Permissions"][];
+        exemptPermissions?: keyof Constants["Permissions"][];
         exemptMembers?: string;
         bonusEntries?: string;
         embedColor?: string;
