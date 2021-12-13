@@ -1,6 +1,6 @@
 {
   "name": "eris-giveaways",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "A framework to facilitate the creation of giveaways using Eris",
   "main": "index.js",
   "scripts": {
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/NotMarx/eris-giveaways#readme",
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "eris": "github:bsian03/eris#v9",
+    "eris": "^0.16.1",
     "serialize-javascript": "^6.0.0"
   }
 }
