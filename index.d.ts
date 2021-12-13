@@ -20,7 +20,7 @@ declare module 'eris-giveaways' {
         public end(messageID: string): Promise<Member[]>;
         public reroll(messageID: string, options?: GiveawayRerollOptions, packet?: RawPacket): Promise<Member[]>;
         public start(channel: TextableChannel, options: GiveawayStartOptions): Promise<Giveaway>;
-        public pause(messageID: string, options: PauseOptions): Promise<Giveaway>;
+        public pause(messageID: string, options?: PauseOptions): Promise<Giveaway>;
         public unpause(messageID: string): Promise<Giveaway>;
         on<K extends keyof GiveawaysManagerEvents>(event: K, listener: (...args: GiveawaysManagerEvents[K]) => void): this;
         on<S extends string | symbol>(
@@ -53,11 +53,11 @@ declare module 'eris-giveaways' {
         threshold?: number;
     }
     interface PauseOptions {
-        isPaused: boolean;
-        content: string;
-        unPauseAfter: number;
-        embedColor: number;
-        durationAfterPause: number;
+        isPaused?: boolean;
+        content?: string;
+        unPauseAfter?: number;
+        embedColor?: number;
+        durationAfterPause?: number;
     }
     interface GiveawaysManagerOptions {
         storage?: string;
