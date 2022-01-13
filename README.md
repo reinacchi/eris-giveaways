@@ -1,5 +1,8 @@
 # Eris Giveaways
 
+[![Discord Server](https://discord.com/api/guilds/772680478888034324/widget.png?style=shield)](https://discord.gg/22v8peAJp8)
+[![GitHub Version](https://img.shields.io/github/package-json/v/reinhello/eris-giveaways)](https://github.com/reinhello/eris-giveaways)
+
 **Eris Giveaways** is a powerful [NodeJS](https://nodejs.org) framework that allows you to easily manage giveaways using the [Eris](https://github.com/abalabahaha/eris) library!
 
 ## Features
