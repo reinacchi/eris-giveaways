@@ -25,15 +25,14 @@ npm install eris-giveaways
 
 ## Examples
 
-### Launch Of The Framework
+### Launch of the Framework
 
 Before launching your bot with **Eris Giveaways**, here are some information you need to look at:
 
 #### Required Intents:
-This framework uses Eris' both REST and GATEWAY V9 which indicating intents are a required options. See below for specific intents:
+Below are the required intents for the framework to run.
 
 - `guilds`
-- `guildMessages`
 - `guildMessageReactions`
 
 #### Optional Intents
@@ -44,7 +43,7 @@ This is an optional intents for faster and better performance. You can either ch
 ```js
 // Require Libraries
 const Eris = require("eris");
-const bot = new Eris("Bot TOKEN", { intents: ["guilds", "guildMessages", "guildMessageReactions", "guildMembers"] }); // Replace "TOKEN" with your bot's real token
+const bot = new Eris("Bot TOKEN", { intents: ["guilds", "guildMessageReactions", "guildMembers"] }); // Replace "TOKEN" with your bot's real token
 const settings = {
     prefix: "g!"
 };
@@ -54,7 +53,6 @@ const { GiveawaysManager } = require("eris-giveaways");
 // Create a Giveaways Manager
 const manager = new GiveawaysManager(client, {
     storage: "./giveaways.json",
-    updateCountdownEvery: 10000,
     default: {
         botsCanWin: false,
         embedColor: 0xFF0000,
@@ -88,9 +86,9 @@ client.on("messageCreate", async (message) => {
 
     if (command === "start-giveaways") {
         client.giveawaysManager.start(message.channel, {
-            time: ms(args[0]),
-            winnerCount: parseInt(args[1]),
-            prize: args.slice(2).join(" ")
+            duration: ms(args[0]),
+            prize: args.slice(2).join(" "),
+            winnerCount: parseInt(args[1])
         });
     }
 });
