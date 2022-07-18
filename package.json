@@ -1,31 +1,48 @@
 {
   "name": "eris-giveaways",
-  "version": "1.0.4-dev",
+  "version": "2.0.0",
   "description": "A framework to facilitate the creation of giveaways using Eris",
-  "main": "index.js",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=16.6.0"
+  },
+  "files": [
+    "src/**/*"
+  ],
+  "types": "src/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "lint": "eslint -c .eslintrc.yml lib/*/**.ts && echo \"\u001b[1m\u001b[32mSUCCESS\u001b[39m\u001b[22m\" || echo \"\u001b[1m\u001b[31mFAILED\u001b[39m\u001b[22m\"",
+    "lint:fix": "eslint -c .eslintrc.yml lib/*/**.ts --fix && echo \"\u001b[1m\u001b[32mSUCCESS\u001b[39m\u001b[22m\" || echo \"\u001b[1m\u001b[31mFAILED\u001b[39m\u001b[22m\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NotMarx/eris-giveaways.git"
+    "url": "git+https://github.com/reinhello/eris-giveaways.git"
   },
   "keywords": [
-    "eris",
-    "eris-giveaways",
-    "giveaways",
-    "discord",
-    "discord-api"
+    "givies",
+    "framework",
+    "typescript",
+    "eris"
   ],
-  "author": "reinhardt",
+  "author": "Reinhardt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/NotMarx/eris-giveaways/issues"
+    "url": "https://github.com/reinhello/eris-giveaways/issues"
   },
-  "homepage": "https://github.com/NotMarx/eris-giveaways#readme",
+  "homepage": "https://github.com/reinhello/eris-giveaways#readme",
+  "devDependencies": {
+    "@types/node": "^18.0.6",
+    "@typescript-eslint/eslint-plugin": "^5.7.0",
+    "@typescript-eslint/parser": "^5.7.0",
+    "eslint": "^8.4.1",
+    "eslint-plugin-sort-class-members": "^1.14.1",
+    "typescript": "^4.5.4"
+  },
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "eris": "github:bsian03/eris#v9",
-    "serialize-javascript": "^6.0.0"
+    "eris": "^0.17.1",
+    "serialize-javascript": "^6.0.0",
+    "tslib": "^2.3.1"
   }
 }
