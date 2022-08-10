@@ -201,13 +201,13 @@ export class GiveawaysManager extends EventEmitter {
         const reaction = message.reactions[giveaway.reaction];
 
         if (!reaction) return;
-        if ((rawEmoji as { animated: boolean; name: string; id: string })?.name !== (packet.d as any).emoji_name) return;
-        if (rawEmoji?.id && rawEmoji?.id !== (packet.d as any).emoji_id) return;
+        if ((rawEmoji as { animated: boolean; name: string; id: string })?.name !== (packet.d as any).emoji.name) return;
+        if (rawEmoji?.id && rawEmoji?.id !== (packet.d as any).emoji.id) return;
 
         if (packet.t === "MESSAGE_REACTION_ADD") {
             if (giveaway.ended) return this.emit("endedGiveawayReactionAdded", giveaway, member, reaction, rawEmoji);
 
-            this.emit("giveawayReactionAdded", giveaway, member, reaction, rawEmoji);
+            this.emit("giveawayReactionAdded", giveaway, member, reaction, rawEmoji, message);
 
             if (giveaway.isDrop && reaction.count - 1 >= giveaway.winnerCount) {
                 this.end(giveaway.messageID).catch(() => { });
