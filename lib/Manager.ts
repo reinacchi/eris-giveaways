@@ -201,13 +201,13 @@ export class GiveawaysManager extends EventEmitter {
         const reaction = message.reactions[giveaway.reaction];
 
         if (!reaction) return;
-        if ((rawEmoji as { animated: boolean; name: string; id: string })?.name !== (packet.d as any).emoji_name) return;
-        if (rawEmoji?.id && rawEmoji?.id !== (packet.d as any).emoji_id) return;
+        if ((rawEmoji as { animated: boolean; name: string; id: string })?.name !== (packet.d as any).emoji.name) return;
+        if (rawEmoji?.id && rawEmoji?.id !== (packet.d as any).emoji.id) return;
 
         if (packet.t === "MESSAGE_REACTION_ADD") {
             if (giveaway.ended) return this.emit("endedGiveawayReactionAdded", giveaway, member, reaction, rawEmoji);
 
-            this.emit("giveawayReactionAdded", giveaway, member, reaction, rawEmoji);
+            this.emit("giveawayReactionAdded", giveaway, member, reaction, rawEmoji, message);
 
             if (giveaway.isDrop && reaction.count - 1 >= giveaway.winnerCount) {
                 this.end(giveaway.messageID).catch(() => { });
@@ -352,7 +352,8 @@ export class GiveawaysManager extends EventEmitter {
             winners: giveaway.fillInString(giveaway.messages.winners),
             hostedBy: giveaway.fillInString(giveaway.messages.hostedBy),
             endedAt: giveaway.fillInString(giveaway.messages.endedAt),
-            prize: giveaway.fillInString(giveaway.prize)
+            prize: giveaway.fillInString(giveaway.prize),
+            title: giveaway.fillInString(giveaway.messages.title)
         };
 
         const descriptionString = (formattedWinners: string) =>
@@ -368,7 +369,7 @@ export class GiveawaysManager extends EventEmitter {
         }
 
         return new RichEmbed()
-            .setTitle(strings.prize)
+            .setTitle(strings.title || strings.prize)
             .setDescription(descriptionString(formattedWinners))
             .setColor(giveaway.embedColorEnd)
             .setFooter(strings.endedAt, (giveaway.messages.embedFooter as { text?: string; iconURL?: string }).iconURL)
@@ -384,7 +385,7 @@ export class GiveawaysManager extends EventEmitter {
      */
     generateInvalidParticipantsEndEmbed(giveaway: Giveaway): RichEmbed {
         const embed = new RichEmbed()
-            .setTitle(giveaway.prize)
+            .setTitle(giveaway.messages.title || giveaway.prize)
             .setColor(giveaway.embedColorEnd)
             .setFooter(giveaway.messages.endedAt, (giveaway.messages.embedFooter as { text?: string; iconURL?: string }).iconURL)
             .setDescription(giveaway.messages.noWinner + (giveaway.hostedBy ? "\n" + giveaway.messages.hostedBy : ""))
@@ -403,7 +404,7 @@ export class GiveawaysManager extends EventEmitter {
      */
     generateMainEmbed(giveaway: Giveaway, lastChanceEnabled = false): RichEmbed {
         const embed = new RichEmbed()
-            .setTitle(giveaway.prize)
+            .setTitle(giveaway.messages.title || giveaway.prize)
             .setColor(giveaway.isDrop ? giveaway.embedColor : giveaway.pauseOptions.isPaused && giveaway.pauseOptions.embedColor ? giveaway.pauseOptions.embedColor : lastChanceEnabled ? giveaway.lastChance.embedColor : giveaway.embedColor)
             .setFooter(typeof giveaway.messages.embedFooter === "object" ? giveaway.messages.embedFooter.text : giveaway.messages.embedFooter, typeof giveaway.messages.embedFooter === "object" ? giveaway.messages.embedFooter.iconURL : undefined)
             .setDescription(

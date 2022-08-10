@@ -55,6 +55,7 @@ export interface GiveawaysMessages {
     inviteToParticipate?: string;
     winMessage?: string | AdvancedMessageContent;
     drawing?: string;
+    title?: string;
     dropMessage?: string;
     embedFooter?: string | { text?: string; iconURL?: string };
     noWinner?: string;
