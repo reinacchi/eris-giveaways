@@ -352,7 +352,8 @@ export class GiveawaysManager extends EventEmitter {
             winners: giveaway.fillInString(giveaway.messages.winners),
             hostedBy: giveaway.fillInString(giveaway.messages.hostedBy),
             endedAt: giveaway.fillInString(giveaway.messages.endedAt),
-            prize: giveaway.fillInString(giveaway.prize)
+            prize: giveaway.fillInString(giveaway.prize),
+            title: giveaway.fillInString(giveaway.messages.title)
         };
 
         const descriptionString = (formattedWinners: string) =>
@@ -368,7 +369,7 @@ export class GiveawaysManager extends EventEmitter {
         }
 
         return new RichEmbed()
-            .setTitle(strings.prize)
+            .setTitle(strings.title || strings.prize)
             .setDescription(descriptionString(formattedWinners))
             .setColor(giveaway.embedColorEnd)
             .setFooter(strings.endedAt, (giveaway.messages.embedFooter as { text?: string; iconURL?: string }).iconURL)
@@ -384,7 +385,7 @@ export class GiveawaysManager extends EventEmitter {
      */
     generateInvalidParticipantsEndEmbed(giveaway: Giveaway): RichEmbed {
         const embed = new RichEmbed()
-            .setTitle(giveaway.prize)
+            .setTitle(giveaway.messages.title || giveaway.prize)
             .setColor(giveaway.embedColorEnd)
             .setFooter(giveaway.messages.endedAt, (giveaway.messages.embedFooter as { text?: string; iconURL?: string }).iconURL)
             .setDescription(giveaway.messages.noWinner + (giveaway.hostedBy ? "\n" + giveaway.messages.hostedBy : ""))
@@ -403,7 +404,7 @@ export class GiveawaysManager extends EventEmitter {
      */
     generateMainEmbed(giveaway: Giveaway, lastChanceEnabled = false): RichEmbed {
         const embed = new RichEmbed()
-            .setTitle(giveaway.prize)
+            .setTitle(giveaway.messages.title || giveaway.prize)
             .setColor(giveaway.isDrop ? giveaway.embedColor : giveaway.pauseOptions.isPaused && giveaway.pauseOptions.embedColor ? giveaway.pauseOptions.embedColor : lastChanceEnabled ? giveaway.lastChance.embedColor : giveaway.embedColor)
             .setFooter(typeof giveaway.messages.embedFooter === "object" ? giveaway.messages.embedFooter.text : giveaway.messages.embedFooter, typeof giveaway.messages.embedFooter === "object" ? giveaway.messages.embedFooter.iconURL : undefined)
             .setDescription(
