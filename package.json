@@ -1,6 +1,6 @@
 {
   "name": "eris-giveaways",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A framework to facilitate the creation of giveaways using Eris",
   "main": "src/index.js",
   "engines": {
@@ -32,7 +32,9 @@
   },
   "homepage": "https://github.com/reinhello/eris-giveaways#readme",
   "devDependencies": {
+    "@types/deepmerge": "^2.2.0",
     "@types/node": "^18.0.6",
+    "@types/serialize-javascript": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
     "@typescript-eslint/parser": "^5.7.0",
     "eslint": "^8.4.1",
